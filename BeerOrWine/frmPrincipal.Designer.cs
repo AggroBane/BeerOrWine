@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblResultat = new System.Windows.Forms.Label();
             this.cbMode = new System.Windows.Forms.ComboBox();
             this.lblMode = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAnalyser = new System.Windows.Forms.Button();
             this.btnSauvegarder = new System.Windows.Forms.Button();
+            this.txtSrcImage = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -49,32 +47,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(776, 369);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fichierToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fichierToolStripMenuItem
-            // 
-            this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem});
-            this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
-            this.fichierToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fichierToolStripMenuItem.Text = "File";
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // lblResultat
             // 
@@ -90,16 +62,17 @@
             // cbMode
             // 
             this.cbMode.FormattingEnabled = true;
-            this.cbMode.Location = new System.Drawing.Point(65, 49);
+            this.cbMode.Location = new System.Drawing.Point(65, 21);
             this.cbMode.Name = "cbMode";
             this.cbMode.Size = new System.Drawing.Size(121, 24);
             this.cbMode.TabIndex = 3;
+            this.cbMode.SelectedIndexChanged += new System.EventHandler(this.cbMode_SelectedIndexChanged);
             this.cbMode.TextUpdate += new System.EventHandler(this.cbMode_TextUpdate);
             // 
             // lblMode
             // 
             this.lblMode.AutoSize = true;
-            this.lblMode.Location = new System.Drawing.Point(12, 52);
+            this.lblMode.Location = new System.Drawing.Point(12, 24);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(47, 17);
             this.lblMode.TabIndex = 4;
@@ -121,6 +94,7 @@
             this.btnAnalyser.TabIndex = 6;
             this.btnAnalyser.Text = "Analyser";
             this.btnAnalyser.UseVisualStyleBackColor = true;
+            this.btnAnalyser.Click += new System.EventHandler(this.btnAnalyser_Click);
             // 
             // btnSauvegarder
             // 
@@ -130,12 +104,35 @@
             this.btnSauvegarder.TabIndex = 7;
             this.btnSauvegarder.Text = "Sauvegarder";
             this.btnSauvegarder.UseVisualStyleBackColor = true;
+            this.btnSauvegarder.Click += new System.EventHandler(this.btnSauvegarder_Click);
+            // 
+            // txtSrcImage
+            // 
+            this.txtSrcImage.Location = new System.Drawing.Point(389, 21);
+            this.txtSrcImage.Name = "txtSrcImage";
+            this.txtSrcImage.ReadOnly = true;
+            this.txtSrcImage.Size = new System.Drawing.Size(399, 22);
+            this.txtSrcImage.TabIndex = 8;
+            this.txtSrcImage.Text = "Click here to open";
+            this.txtSrcImage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSrcImage.Click += new System.EventHandler(this.txtSrcImage_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(272, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Dossier source: ";
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtSrcImage);
             this.Controls.Add(this.btnSauvegarder);
             this.Controls.Add(this.btnAnalyser);
             this.Controls.Add(this.label2);
@@ -143,14 +140,10 @@
             this.Controls.Add(this.cbMode);
             this.Controls.Add(this.lblResultat);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmPrincipal";
             this.Text = "Beer or Wine?";
             this.Load += new System.EventHandler(this.frmPrincipal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,15 +152,14 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fichierToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.Label lblResultat;
         private System.Windows.Forms.ComboBox cbMode;
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAnalyser;
         private System.Windows.Forms.Button btnSauvegarder;
+        private System.Windows.Forms.TextBox txtSrcImage;
+        private System.Windows.Forms.Label label1;
     }
 }
 
