@@ -51,19 +51,13 @@ namespace BeerOrWine
         /// <param name="j">X coordinates of the pixel</param>
         /// <param name="i">Y coordinates of the pixel</param>
         /// <returns></returns>
-        public Color this[int j, int i]
+        private Color this[int j, int i]
         {
             get
             {
                 VerifyDimensions(j, i);
 
                 return this.ImageBitmap.GetPixel(j, i);
-            }
-            set
-            {
-                VerifyDimensions(j, i);
-
-                this.ImageBitmap.SetPixel(j, i, value);
             }
         }
 
@@ -76,7 +70,7 @@ namespace BeerOrWine
         /// </summary>
         public ImageRecognition(Bitmap bitmapImage)
         {
-            this.ImageBitmap = null;
+            this.ImageBitmap = bitmapImage;
         }
         #endregion
 

@@ -8,6 +8,7 @@ namespace BeerOrWine
 {
     enum TypeEnum
     {
-        Beer, Wine
+        Beer,
+        Wine
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BeerOrWine
 {
-    partial class Form1
+    partial class frmPrincipal
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -37,6 +37,7 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAnalyser = new System.Windows.Forms.Button();
+            this.btnSauvegarder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -97,7 +98,7 @@
             // lblMode
             // 
             this.lblMode.AutoSize = true;
-            this.lblMode.Location = new System.Drawing.Point(12, 49);
+            this.lblMode.Location = new System.Drawing.Point(12, 52);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(47, 17);
             this.lblMode.TabIndex = 4;
@@ -113,18 +114,28 @@
             // 
             // btnAnalyser
             // 
-            this.btnAnalyser.Location = new System.Drawing.Point(324, 487);
+            this.btnAnalyser.Location = new System.Drawing.Point(147, 487);
             this.btnAnalyser.Name = "btnAnalyser";
             this.btnAnalyser.Size = new System.Drawing.Size(158, 40);
             this.btnAnalyser.TabIndex = 6;
             this.btnAnalyser.Text = "Analyser";
             this.btnAnalyser.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // btnSauvegarder
+            // 
+            this.btnSauvegarder.Location = new System.Drawing.Point(479, 487);
+            this.btnSauvegarder.Name = "btnSauvegarder";
+            this.btnSauvegarder.Size = new System.Drawing.Size(158, 40);
+            this.btnSauvegarder.TabIndex = 7;
+            this.btnSauvegarder.Text = "Sauvegarder";
+            this.btnSauvegarder.UseVisualStyleBackColor = true;
+            // 
+            // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.btnSauvegarder);
             this.Controls.Add(this.btnAnalyser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblMode);
@@ -133,8 +144,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frmPrincipal";
+            this.Text = "Beer or Wine?";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -154,6 +165,7 @@
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAnalyser;
+        private System.Windows.Forms.Button btnSauvegarder;
     }
 }
 

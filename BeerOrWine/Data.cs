@@ -8,5 +8,6 @@ namespace BeerOrWine
 {
     class Data
     {
+
     }
 }
