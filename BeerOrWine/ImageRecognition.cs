@@ -8,12 +8,13 @@ namespace BeerOrWine
 {
     class ImageRecognition
     {
-        #region ATTRIBUTS
+        #region ATTRIBUTES
 
         /// <summary>
         /// Image bitmap
         /// </summary>
         private Bitmap _imageBitmap;
+        private TypeEnum _type;
 
         #endregion
 
@@ -45,6 +46,12 @@ namespace BeerOrWine
             }
         }
 
+        public TypeEnum Type
+        {
+            get { return this._type; }
+            private set { this._type = value; }
+        }
+
         /// <summary>
         /// Indexer allowing access to the pixels of the image
         /// </summary>
@@ -66,11 +73,21 @@ namespace BeerOrWine
 
         #region CONSTRUCTEURS
         /// <summary>
-        /// Constructor for an object using a bitmap recieved through its parameter.
+        /// Constructor for an object using a bitmap recieved through its parameter, WITHOUT the type of image given.
         /// </summary>
         public ImageRecognition(Bitmap bitmapImage)
         {
             this.ImageBitmap = bitmapImage;
+            this.Type = TypeEnum.Undetermined;
+        }
+
+        /// <summary>
+        /// Constructor for an object using a bitmap recieved through its parameter, WITH the type of image given.
+        /// </summary>
+        public ImageRecognition(Bitmap bitmapImage, TypeEnum imageType)
+        {
+            this.ImageBitmap = bitmapImage;
+            this.Type = imageType;
         }
         #endregion
 
@@ -89,6 +106,36 @@ namespace BeerOrWine
                 throw new ArgumentOutOfRangeException("The j parameter cannot be greater than the width of the image.");
         }
 
+        public Data AnalyzeData()
+        {
+            if (this.ImageBitmap == null)
+                throw new ArgumentNullException("The image is null, it cannot be analyzed.");
+            int nbPixels = this.Width * this.Height;
+            double pixelR = 0;
+            double pixelG = 0;
+            double pixelB = 0;
+
+            for (int i = 0; i < this.Height; i++)
+            {
+                for (int j = 0; j < this.Width; j++)
+                {
+                    if (this[j, i] != Color.FromArgb(255, 255, 255))
+                    {
+                        pixelR = this[j, i].R;
+                        pixelG = this[j, i].G;
+                        pixelB = this[j, i].B;
+                    }
+                    else
+                        nbPixels--;
+                }
+            }
+
+            pixelR = pixelR / nbPixels;
+            pixelG = pixelG / nbPixels;
+            pixelB = pixelB / nbPixels;
+
+            return Data(this.Type, pixelR, pixelG, pixelB);
+        }
         #endregion
     }
 }
