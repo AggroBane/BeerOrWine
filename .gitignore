@@ -1,0 +1,5 @@
+﻿.vs/*
+BeerOrWine/bin/Debug/*
+BeerOrWine/bin/Release/*
+BeerOrWine/obj/*
+.vs/BeerOrWine/v15/Server/sqlite3/*
