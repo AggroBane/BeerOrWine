@@ -62,7 +62,7 @@ namespace BeerOrWine
                 }
                 catch (XmlException)
                 {
-                    throw new XmlException("An error occured when saving the file.")
+                    throw new XmlException("An error occured when saving the file.");
                 }
                 return true;
             }

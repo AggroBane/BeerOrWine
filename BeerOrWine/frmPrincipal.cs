@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -92,17 +93,6 @@ namespace BeerOrWine
             }
 
             this.cbMode.SelectedIndex = 0;
-        }
-
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cheminFichierImage;
-
-            if (Utilitaire.DemanderSelectionnerFichierImage(out cheminFichierImage))
-            {
-                this.Image = new Bitmap(System.Drawing.Image.FromFile(cheminFichierImage));
-                this.Image.Tag = TypeEnum.Beer;
-            }
         }
 
         private bool LoadTrainingData()
@@ -200,13 +190,27 @@ namespace BeerOrWine
                     //Update the path
                     this.CheminDossierSrc = folderDialog.SelectedPath;
 
-                    //Get all the images in the training folder
-                    this.TrainingImages =
-                        Directory.GetFiles(this.CheminDossierSrc + "\\training\\", "*.png", SearchOption.AllDirectories);
 
-                    //Get all the images in the evaluation folder
-                    this.EvaluationImages =
-                        Directory.GetFiles(this.CheminDossierSrc + "\\evaluation\\", "*.png", SearchOption.AllDirectories);
+                    //ArrayList that hold all file names
+                    ArrayList allFilesTraining = new ArrayList();
+                    ArrayList allFilesEvaluation = new ArrayList();
+
+                    //Create an array of filter string
+                    string filter = "*.jpg|*.png";
+                    string[] multipleFilters = filter.Split('|');
+
+                    //For each filter find mathing file names
+                    foreach (string fileFilter in multipleFilters)
+                    {
+                        //Add found file names to arraylist
+                        allFilesTraining.AddRange(Directory.GetFiles(this.CheminDossierSrc+"\\training\\", fileFilter, SearchOption.AllDirectories));
+                        allFilesEvaluation.AddRange(Directory.GetFiles(this.CheminDossierSrc + "\\evaluation\\", fileFilter, SearchOption.AllDirectories));
+                    }
+
+                    //Convert back arraylist to string[]
+                    this.TrainingImages = (string[])allFilesTraining.ToArray(typeof(string));
+                    this.EvaluationImages = (string[])allFilesEvaluation.ToArray(typeof(string));
+
                     return true;
                 }
                 else
@@ -250,7 +254,7 @@ namespace BeerOrWine
         {
             if (this.Mode == ModeEnum.Training)
             {
-                if (this.TrainingImages != null)
+                if (this.TrainingImages.Length != 0)
                 {
                     //Reset the cpt if its bigger than the lenght of the array
                     if (this.CptFichier >= this.TrainingImages.Length)
