@@ -138,29 +138,29 @@ namespace BeerOrWine
 
         private void txtSrcImage_Click(object sender, EventArgs e)
         {
-            OpenFolder();
-
-            //Display the first image or an error if the folder is empty
-            if (this.Mode == ModeEnum.Training)
+            if (OpenFolder())
             {
-                if (this.TrainingImages.Length != 0)
+                //Display the first image or an error if the folder is empty
+                if (this.Mode == ModeEnum.Training)
                 {
-                    this.Image = new Bitmap(System.Drawing.Image.FromFile(this.TrainingImages[0]));
-                    this.pictureBox1.Image = this.Image;
-                    this.CptFichier = 1;
+                    if (this.TrainingImages != null && this.TrainingImages.Length != 0)
+                    {
+                        this.Image = new Bitmap(System.Drawing.Image.FromFile(this.TrainingImages[0]));
+                        this.pictureBox1.Image = this.Image;
+                        this.CptFichier = 1;
+                    }
+                    else MessageBox.Show("There are no images in the training folder");
                 }
-                else MessageBox.Show("There are no images in the training folder");
-
-            }
-            else if (this.Mode == ModeEnum.Evaluation)
-            {
-                if (this.EvaluationImages.Length != 0)
+                else if (this.Mode == ModeEnum.Evaluation)
                 {
-                    this.Image = new Bitmap(System.Drawing.Image.FromFile(this.EvaluationImages[0]));
-                    this.pictureBox1.Image = this.Image;
-                    this.CptFichier = 1;
+                    if (this.EvaluationImages != null && this.EvaluationImages.Length != 0)
+                    {
+                        this.Image = new Bitmap(System.Drawing.Image.FromFile(this.EvaluationImages[0]));
+                        this.pictureBox1.Image = this.Image;
+                        this.CptFichier = 1;
+                    }
+                    else MessageBox.Show("There are no images in the evaluation folder");
                 }
-                else MessageBox.Show("There are no images in the evaluation folder");
             }
         }
 
@@ -203,13 +203,13 @@ namespace BeerOrWine
                     foreach (string fileFilter in multipleFilters)
                     {
                         //Add found file names to arraylist
-                        allFilesTraining.AddRange(Directory.GetFiles(this.CheminDossierSrc+"\\training\\", fileFilter, SearchOption.AllDirectories));
+                        allFilesTraining.AddRange(Directory.GetFiles(this.CheminDossierSrc + "\\training\\", fileFilter, SearchOption.AllDirectories));
                         allFilesEvaluation.AddRange(Directory.GetFiles(this.CheminDossierSrc + "\\evaluation\\", fileFilter, SearchOption.AllDirectories));
                     }
 
                     //Convert back arraylist to string[]
-                    this.TrainingImages = (string[])allFilesTraining.ToArray(typeof(string));
-                    this.EvaluationImages = (string[])allFilesEvaluation.ToArray(typeof(string));
+                    this.TrainingImages = (string[]) allFilesTraining.ToArray(typeof(string));
+                    this.EvaluationImages = (string[]) allFilesEvaluation.ToArray(typeof(string));
 
                     return true;
                 }
@@ -252,23 +252,33 @@ namespace BeerOrWine
 
         private void btnNextImage_Click(object sender, EventArgs e)
         {
-            if (this.Mode == ModeEnum.Training)
+            if (this.CheminDossierSrc != "")
             {
-                if (this.TrainingImages.Length != 0)
+                if (this.Mode == ModeEnum.Training)
                 {
-                    //Reset the cpt if its bigger than the lenght of the array
-                    if (this.CptFichier >= this.TrainingImages.Length)
+                    if (this.TrainingImages != null && this.TrainingImages.Length != 0)
                     {
-                        this.CptFichier = 0;
-                    }
+                        //Reset the cpt if its bigger than the lenght of the array
+                        if (this.CptFichier >= this.TrainingImages.Length)
+                        {
+                            this.CptFichier = 0;
+                        }
 
-                    this.Image = new Bitmap(System.Drawing.Image.FromFile(this.TrainingImages[this.CptFichier]));
-                    this.pictureBox1.Image = this.Image;
-                    this.CptFichier++;
+                        this.Image = new Bitmap(System.Drawing.Image.FromFile(this.TrainingImages[this.CptFichier]));
+                        this.pictureBox1.Image = this.Image;
+                        this.CptFichier++;
+                    }
+                    else MessageBox.Show("There are no images in the training folder");
                 }
-                else MessageBox.Show("There are no images in the training folder");
+                else if (this.Mode == ModeEnum.Evaluation)
+                {
+                    //TODO: 
+                    MessageBox.Show("Not implemented yet");
+                }
             }
-            else MessageBox.Show("Select a source folder first");
+            else MessageBox.Show("There are no source folder selected");
+
+
         }
     }
 }
