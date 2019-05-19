@@ -94,17 +94,6 @@ namespace BeerOrWine
             this.cbMode.SelectedIndex = 0;
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cheminFichierImage;
-
-            if (Utilitaire.DemanderSelectionnerFichierImage(out cheminFichierImage))
-            {
-                this.Image = new Bitmap(System.Drawing.Image.FromFile(cheminFichierImage));
-                this.Image.Tag = TypeEnum.Beer;
-            }
-        }
-
         private bool LoadTrainingData()
         {
             return false;
