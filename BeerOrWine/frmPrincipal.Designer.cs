@@ -37,6 +37,7 @@
             this.btnSauvegarder = new System.Windows.Forms.Button();
             this.txtSrcImage = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnNextImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,21 +89,21 @@
             // 
             // btnAnalyser
             // 
-            this.btnAnalyser.Location = new System.Drawing.Point(147, 487);
+            this.btnAnalyser.Location = new System.Drawing.Point(309, 487);
             this.btnAnalyser.Name = "btnAnalyser";
             this.btnAnalyser.Size = new System.Drawing.Size(158, 40);
             this.btnAnalyser.TabIndex = 6;
-            this.btnAnalyser.Text = "Analyser";
+            this.btnAnalyser.Text = "Analyze";
             this.btnAnalyser.UseVisualStyleBackColor = true;
             this.btnAnalyser.Click += new System.EventHandler(this.btnAnalyser_Click);
             // 
             // btnSauvegarder
             // 
-            this.btnSauvegarder.Location = new System.Drawing.Point(479, 487);
+            this.btnSauvegarder.Location = new System.Drawing.Point(522, 487);
             this.btnSauvegarder.Name = "btnSauvegarder";
             this.btnSauvegarder.Size = new System.Drawing.Size(158, 40);
             this.btnSauvegarder.TabIndex = 7;
-            this.btnSauvegarder.Text = "Sauvegarder";
+            this.btnSauvegarder.Text = "Save";
             this.btnSauvegarder.UseVisualStyleBackColor = true;
             this.btnSauvegarder.Click += new System.EventHandler(this.btnSauvegarder_Click);
             // 
@@ -122,15 +123,26 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(272, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.Size = new System.Drawing.Size(101, 17);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Dossier source: ";
+            this.label1.Text = "Source folder: ";
+            // 
+            // btnNextImage
+            // 
+            this.btnNextImage.Location = new System.Drawing.Point(93, 487);
+            this.btnNextImage.Name = "btnNextImage";
+            this.btnNextImage.Size = new System.Drawing.Size(158, 40);
+            this.btnNextImage.TabIndex = 11;
+            this.btnNextImage.Text = "Next image";
+            this.btnNextImage.UseVisualStyleBackColor = true;
+            this.btnNextImage.Click += new System.EventHandler(this.btnNextImage_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 530);
+            this.Controls.Add(this.btnNextImage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSrcImage);
             this.Controls.Add(this.btnSauvegarder);
@@ -160,6 +172,7 @@
         private System.Windows.Forms.Button btnSauvegarder;
         private System.Windows.Forms.TextBox txtSrcImage;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnNextImage;
     }
 }
 
