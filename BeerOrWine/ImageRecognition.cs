@@ -106,10 +106,11 @@ namespace BeerOrWine
                 throw new ArgumentOutOfRangeException("The j parameter cannot be greater than the width of the image.");
         }
 
-        public Data AnalyzeData()
+        public TrainingData AnalyzeData()
         {
             if (this.ImageBitmap == null)
                 throw new ArgumentNullException("The image is null, it cannot be analyzed.");
+
             int nbPixels = this.Width * this.Height;
             double pixelR = 0;
             double pixelG = 0;
@@ -134,7 +135,13 @@ namespace BeerOrWine
             pixelG = pixelG / nbPixels;
             pixelB = pixelB / nbPixels;
 
-            return Data(this.Type, pixelR, pixelG, pixelB);
+            byte rData = (byte)Math.Min(pixelR, 255);
+            byte gData = (byte)Math.Min(pixelG, 255);
+            byte bData = (byte)Math.Min(pixelB, 255);
+
+            TrainingData trainingData = new TrainingData(this.Type, rData, gData, bData);
+
+            return trainingData;
         }
         #endregion
     }
