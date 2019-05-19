@@ -8,7 +8,7 @@ namespace BeerOrWine
 {
     class ImageRecognition
     {
-        #region ATTRIBUTS
+        #region ATTRIBUTES
 
         /// <summary>
         /// Image bitmap
@@ -94,6 +94,7 @@ namespace BeerOrWine
             if (j >= this.Width && j > 0)
                 throw new ArgumentOutOfRangeException("The j parameter cannot be greater than the width of the image.");
         }
+        
 
         #endregion
     }
