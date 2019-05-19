@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeerOrWine
 {
-    class enum TypeEnum
+    public enum TypeEnum
     {
         Beer,
         Wine
-    }
+    };
 }
