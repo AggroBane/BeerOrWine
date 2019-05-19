@@ -8,9 +8,9 @@ namespace BeerOrWine
 {
     public enum TypeEnum
     {
+        Undetermined,
         Beer,
-        Wine,
-        Undetermined
-    };
+        Wine
+    }
 }
 
