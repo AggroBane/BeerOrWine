@@ -16,5 +16,10 @@ namespace BeerOrWine
         {
             InitializeComponent();
         }
+
+        private void fichierToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
