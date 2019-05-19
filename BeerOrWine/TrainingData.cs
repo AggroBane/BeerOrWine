@@ -10,6 +10,7 @@ namespace BeerOrWine
     {
         private byte _redRate, _greenRate, _blueRate;
         private TypeEnum _type;
+        private  ushort _id;
 
         public byte RedRate
         {
@@ -35,6 +36,15 @@ namespace BeerOrWine
             private set { this._type = value; }
         }
 
+        public ushort Id
+        {
+            get { return this._id; }
+            private set
+            {
+                this._id = value;
+
+            }
+        }
 
         public TrainingData(TypeEnum type, byte r, byte g, byte b)
         {

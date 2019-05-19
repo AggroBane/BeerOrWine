@@ -9,12 +9,12 @@ namespace BeerOrWine
     class ImageRecognition
     {
         #region ATTRIBUTES
-
         /// <summary>
         /// Image bitmap
         /// </summary>
         private Bitmap _imageBitmap;
         private TypeEnum _type;
+
 
         #endregion
 

@@ -1,60 +1,73 @@
-﻿#region MÉTADONNÉES
-
-// Nom du fichier : Utilitaire.cs
-// Auteur : Stéphane Lapointe (slapointe)
-// Date de création : 2015-12-21
-// Date de modification : 2016-04-22
-
-#endregion
-
-#region USING
+﻿#region USING
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 #endregion
 
-namespace Cours_420_216
+namespace BeerOrWine
 {
-    /// <summary>
-    /// Classe utilitaire.
-    /// </summary>
     public static class Utilitaire
     {
-        #region MÉTHODES
+        public const string defaultFilePath = "C:\\";
 
-        /// <summary>
-        /// Permet de faire afficher une boîte de dialogue pour sélectionner un fichier image.
-        /// Notez bien l'utilisation du mot "out" devant le type du paramètre.
-        /// </summary>
-        /// <param name="cheminFichier">Chemin complet du fichier image sélectionné ou bien null
-        /// si l'opération a été annulée.</param>
-        /// <returns>true si un fichier image a été sélectionné; false, autrement.</returns>
-        public static bool DemanderSelectionnerFichierImage(out String cheminFichier)
+        public static bool SaveData(string filePath, List<TrainingData> lstTrainingData)
         {
-            // Création de la boîte de dialogue permettant de sélectionner un fichier image.
-            OpenFileDialog dialogueOuvrirFichier = new OpenFileDialog();
-            // Filtre permettant de restreindre la sélection à des fichiers images.
-            dialogueOuvrirFichier.Filter = "Images (*.png, *.jpg, *.gif, *.bmp)|*.png;*.jpg;*.gif;*.bmp";
-            // Titre de la boîte de dialogue.
-            dialogueOuvrirFichier.Title = "Sélectionnez un fichier image";
+            //Verifications
+            if(!File.Exists(filePath))
+                File.Create(filePath);
 
-            // Ouverture de la boîte de dialogue pour la sélection d'un fichier et traitement en fonction de la réponse.
-            if (dialogueOuvrirFichier.ShowDialog() == DialogResult.OK)
+            if (lstTrainingData != null)
             {
-                // Chemin complet du fichier image sélectionné.
-                cheminFichier = dialogueOuvrirFichier.FileName;
+                XmlDocument xmlDoc = new XmlDocument();
+
+                //Declaration
+                XmlDeclaration xmlDec = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                xmlDoc.AppendChild(xmlDec);
+
+                XmlElement elemDataList = xmlDoc.CreateElement("Liste-Data");
+                xmlDoc.AppendChild(elemDataList);
+
+                foreach (TrainingData data in lstTrainingData)
+                {
+                    XmlElement elemData, elemType, elemR, elemG, elemB;
+
+                    elemData = xmlDoc.CreateElement("Data");
+
+                    elemType = xmlDoc.CreateElement("Type");
+                    elemType.InnerText = String.Format("{0}", (int)data.Type);
+                    elemData.AppendChild(elemType);
+
+                    elemR = xmlDoc.CreateElement("elemR");
+                    elemR.InnerText = data.RedRate.ToString();
+                    elemData.AppendChild(elemR);
+
+                    elemG = xmlDoc.CreateElement("elemG");
+                    elemG.InnerText = data.GreenRate.ToString();
+                    elemData.AppendChild(elemG);
+
+                    elemB = xmlDoc.CreateElement("elemB");
+                    elemB.InnerText = data.BlueRate.ToString();
+                    elemData.AppendChild(elemB);
+
+                    elemDataList.AppendChild(elemData);
+                }
+
+                try
+                {
+                    xmlDoc.Save(filePath);
+                }
+                catch (XmlException)
+                {
+                    throw new XmlException("An error occured when saving the file.")
+                }
                 return true;
             }
             else
-            {
-                // Il est obligatoire de mettre une valeur dans le paramètre en sortie "cheminFichier"
-                // même si non utilisé.
-                cheminFichier = null;
                 return false;
-            }
         }
-
-        #endregion
     }
 }
