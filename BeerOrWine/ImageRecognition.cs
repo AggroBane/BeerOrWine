@@ -122,9 +122,9 @@ namespace BeerOrWine
                 {
                     if (this[j, i] != Color.FromArgb(255, 255, 255))
                     {
-                        pixelR = this[j, i].R;
-                        pixelG = this[j, i].G;
-                        pixelB = this[j, i].B;
+                        pixelR += this[j, i].R;
+                        pixelG += this[j, i].G;
+                        pixelB += this[j, i].B;
                     }
                     else
                         nbPixels--;
