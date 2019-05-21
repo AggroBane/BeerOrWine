@@ -93,6 +93,11 @@ namespace BeerOrWine
             }
 
             this.cbMode.SelectedIndex = 0;
+
+            this.lblResultat.Text = "";
+
+            //TODO: Loader les training data si on a le fichier source 
+            this.LstTrainingData = new List<TrainingData>();
         }
 
         private bool LoadTrainingData()
@@ -107,6 +112,20 @@ namespace BeerOrWine
 
         private void GeneralizeData()
         {
+            double totalRed = 0;
+            int cptRed = 0;
+            foreach (TrainingData tr in this.LstTrainingData)
+            {
+                //if (tr.Type == TypeEnum.Wine)
+                //{
+                    totalRed += tr.RedRate;
+                    cptRed++;
+                //}
+            }
+
+            totalRed /= (double)cptRed;
+
+            this.GeneralizedTrainingData = new TrainingData(TypeEnum.Wine, (byte)totalRed, 0, 0);
         }
 
         private void AnalyzeImage()
@@ -114,15 +133,25 @@ namespace BeerOrWine
             if (this.Image != null)
             {
                 ImageRecognition imageRecogn = new ImageRecognition(this.Image);
+                TrainingData nouvData = imageRecogn.AnalyzeData();
 
                 if (this.Mode == ModeEnum.Training)
                 {
-                    TrainingData nouvData = imageRecogn.AnalyzeData();
-                    this.LstTrainingData.Add(nouvData);
+                    //TODO: remettre plus tard
+                    //if(nouvData.Type != TypeEnum.Undetermined)
+                        this.LstTrainingData.Add(nouvData);
                     this.lblResultat.Text = "Red Rate: " + nouvData.RedRate + " Green rate: " + nouvData.GreenRate + " Blue Rate: " + nouvData.BlueRate;
                 }
                 else
                 {
+                    if (nouvData.RedRate >= this.GeneralizedTrainingData.RedRate)
+                    {
+                        this.lblResultat.Text = "This is wine";
+                    }
+                    else
+                    {
+                        this.lblResultat.Text = "This is beer";
+                    }
                 }
             }
         }
@@ -247,6 +276,9 @@ namespace BeerOrWine
             if (this.cbMode != null)
             {
                 this.Mode = (ModeEnum) this.cbMode.SelectedIndex;
+
+                if(this.Mode == ModeEnum.Evaluation)
+                    GeneralizeData();
             }
         }
 
@@ -254,8 +286,7 @@ namespace BeerOrWine
         {
             if (this.CheminDossierSrc != "")
             {
-                if (this.Mode == ModeEnum.Training)
-                {
+
                     if (this.TrainingImages != null && this.TrainingImages.Length != 0)
                     {
                         //Reset the cpt if its bigger than the lenght of the array
@@ -264,20 +295,20 @@ namespace BeerOrWine
                             this.CptFichier = 0;
                         }
 
+                        this.lblResultat.Text = "";
                         this.Image = new Bitmap(System.Drawing.Image.FromFile(this.TrainingImages[this.CptFichier]));
                         this.pictureBox1.Image = this.Image;
                         this.CptFichier++;
                     }
                     else MessageBox.Show("There are no images in the training folder");
-                }
-                else if (this.Mode == ModeEnum.Evaluation)
-                {
-                    //TODO: 
-                    MessageBox.Show("Not implemented yet");
-                }
             }
             else MessageBox.Show("There are no source folder selected");
 
+
+        }
+
+        private void lblResultat_Click(object sender, EventArgs e)
+        {
 
         }
     }
