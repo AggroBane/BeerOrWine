@@ -60,6 +60,7 @@
             this.lblResultat.TabIndex = 2;
             this.lblResultat.Text = "{Résultat}";
             this.lblResultat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblResultat.Click += new System.EventHandler(this.lblResultat_Click);
             // 
             // cbMode
             // 
